@@ -5,7 +5,7 @@ class Record:
     DATE_FORMAT = "%d.%m.%Y"
 
     # параметры при инициализации
-    def __init__(self, amount, comment, date=dt.date.today()):
+    def __init__(self, amount: int, comment: str or None, date=dt.date.today()) -> None:
         self.amount = amount
         self.comment = str(comment)
 
@@ -17,15 +17,15 @@ class Record:
 
 # как я понял это папа миксин
 class Calculator:
-    def __init__(self, limit):
+    def __init__(self, limit: int) -> None:
         self.limit = limit
         self.records = []
 
     # каждая запись это объект класс рекордс
-    def add_record(self, record):
+    def add_record(self, record: object) -> None:
         self.records.append(record)
 
-    def get_stats(self, days_amount):
+    def get_stats(self, days_amount: int) -> int:
         result = 0
         past_date = dt.date.today() - dt.timedelta(days=days_amount)
         today = dt.date.today()
@@ -37,11 +37,11 @@ class Calculator:
         return result
 
     # property
-    def get_today_stats(self):
+    def get_today_stats(self) -> int:
         return self.get_stats(1)
 
     #property
-    def get_week_stats(self):
+    def get_week_stats(self) -> int:
         return self.get_stats(7)
 
 
@@ -52,7 +52,7 @@ class CashCalculator(Calculator):
 
     # возвращает разницу кол-во твоих денег - потраченное
     # за сегодня
-    def get_today_cash_remained(self, currency):
+    def get_today_cash_remained(self, currency: str) -> str:
         spent = self.get_today_stats()
         remained = self.limit - spent
 
@@ -76,7 +76,7 @@ class CaloriesCalculator(Calculator):
 
     # тоже самое, что и в обычном калькуляторе денег
     # только с калориями
-    def get_calories_remained(self):
+    def get_calories_remained(self) -> str:
         spent = self.get_today_stats()
         remained = self.limit - spent
 
